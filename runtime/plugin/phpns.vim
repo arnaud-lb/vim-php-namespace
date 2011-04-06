@@ -9,7 +9,7 @@
 function! PhpInsertUse()
   exe "normal mz"
   " move to the first component
-  " \Foo\Bar => move to the first \
+  " Foo\Bar => move to the F
   call search('[[:alnum:]\\]\+', 'bcW')
   let cur_class = expand("<cword>")
   try
@@ -28,7 +28,7 @@ function! PhpInsertUse()
         return
     endtry
     1
-    if search('^\s*\%(abstract\_s\+\)\?class\_s\+' . cur_class) > 0
+    if search('^\s*\%(abstract\_s\+\)\?\%(class\|interface\)\_s\+' . cur_class . '\>') > 0
       if search('^\s*namespace\s\+', 'b') > 0
         yank y
       else
