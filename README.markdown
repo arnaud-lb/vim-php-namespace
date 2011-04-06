@@ -4,7 +4,7 @@ vim-php-namespace is a helper script for inserting "use" statements automaticall
 
 ## Installation:
 
- * Copy `phpns.vim` to `~/.vim/plugin/`
+ * Copy `runtime/plugin/phpns.vim` to `~/.vim/plugin/`
  * Add this in `~/.vim/ftplugin/php.vim`:
 
         imap <buffer> <F5> <ESC>:call PhpInsertUse()<CR>
