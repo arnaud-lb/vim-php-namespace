@@ -28,7 +28,7 @@ function! PhpInsertUse()
             return
         endtry
         1
-        if search('^\s*\%(abstract\_s\+\)\?\%(class\|interface\)\_s\+' . cur_class . '\>') > 0
+        if search('^\s*\%(\%(abstract\|final\)\_s\+\)*\%(class\|interface\)\_s\+' . cur_class . '\>') > 0
             if search('^\s*namespace\s\+', 'b') > 0
                 yank y
             else
