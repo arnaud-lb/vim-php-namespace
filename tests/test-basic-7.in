@@ -1,0 +1,12 @@
+
+Basic test 7
+
+STARTTEST
+:%d
+a<?php
+
+class Something implements Bar:call PhpInsertUse()
+ax:w! test.out
+:qa!
+ENDTEST
+

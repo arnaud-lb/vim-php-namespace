@@ -1,0 +1,11 @@
+
+Basic test 2
+
+STARTTEST
+:%d
+a<?php
+
+class BarUax:w! test.out
+:qa!
+ENDTEST
+

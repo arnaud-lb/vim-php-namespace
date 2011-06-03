@@ -1,0 +1,6 @@
+:set runtimepath=../
+:runtime plugin/phpns.vim
+:map U :call PhpInsertUse()<CR>
+:mapi U <ESC>:call PhpInsertUse()<CR>
+:map dotest /^STARTTESTj:set ff=unix cpo-=A:.,/ENDTEST/-1w! Xdotest:set ff& cpo+=Anj0:so! Xdotestdotest
+dotest

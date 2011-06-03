@@ -1,0 +1,8 @@
+<?php
+
+use
+    Abc\Def
+;
+use Foo\Bar;
+
+class Barx

@@ -1,0 +1,16 @@
+
+Basic test 4
+
+STARTTEST
+:%d
+a<?php
+
+namespace Something;
+
+use Abc\Def;
+
+class Bar:call PhpInsertUse()
+ax:w! test.out
+:qa!
+ENDTEST
+
