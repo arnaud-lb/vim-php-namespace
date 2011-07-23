@@ -40,9 +40,9 @@ function! PhpInsertUse()
         wincmd p
         normal! G
         " insert after last use or namespace or <?php
-        if search('^\s*use\_s\_[^;]*;', 'be') > 0
+        if search('^\s*use\_s\_[[:alnum:][:blank:]\\]*;', 'be') > 0
             put y
-        elseif search('^\s*namespace\_s\_[^;{]*[;{]', 'be') > 0
+        elseif search('^\s*namespace\_s\_[[:alnum:][:blank:]\\]*[;{]', 'be') > 0
             exe "normal! jO\<Esc>"
             put y
         elseif search('<?\%(php\)\?', 'be') > 0

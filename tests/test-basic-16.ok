@@ -1,0 +1,11 @@
+<?php
+
+namespace Foo;
+
+use Foo\Bar;
+
+namespace \Foo();
+namespace\Foo::BAR;
+namespace\Foo::BAZ;
+
+class Barx

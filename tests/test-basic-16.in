@@ -1,0 +1,20 @@
+
+Basic test 16
+Inserting use statement when the 'namespace' keyword is used for an other
+purpose than to declare current namespace
+
+STARTTEST
+:%d
+a<?php
+
+namespace Foo;
+
+namespace \Foo();
+namespace\Foo::BAR;
+namespace\Foo::BAZ;
+
+class Bar:call PhpInsertUse()
+ax:w! test.out
+:qa!
+ENDTEST
+

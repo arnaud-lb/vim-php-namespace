@@ -1,0 +1,21 @@
+
+Basic test 14
+Inserting use statement when a function(..) use (..) exists.
+
+STARTTEST
+:%d
+a<?php
+
+use Foo\Baz;
+
+$a = 1;
+function()
+	use ($a) {
+	$a = 1;
+}
+
+class Bar:call PhpInsertUse()
+ax:w! test.out
+:qa!
+ENDTEST
+

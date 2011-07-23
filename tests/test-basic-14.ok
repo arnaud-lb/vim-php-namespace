@@ -1,0 +1,12 @@
+<?php
+
+use Foo\Baz;
+use Foo\Bar;
+
+$a = 1;
+function()
+	use ($a) {
+	$a = 1;
+}
+
+class Barx

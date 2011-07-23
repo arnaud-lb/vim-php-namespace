@@ -5,11 +5,7 @@
 
 VIMPROG=vim
 
-SCRIPTS = test1.out test-basic-1.out test-basic-2.out test-basic-3.out \
-		  test-basic-4.out test-basic-5.out test-basic-6.out test-basic-7.out \
-		  test-basic-8.out test-basic-8.out test-basic-9.out \
-		  test-basic-10.out test-basic-11.out test-basic-12.out \
-		  test-basic-13.out
+SCRIPTS = $(patsubst %.ok,%.out,$(wildcard *.ok))
 
 .SUFFIXES: .in .out
 
