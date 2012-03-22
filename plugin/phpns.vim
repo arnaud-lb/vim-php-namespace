@@ -41,7 +41,7 @@ function! PhpInsertUse()
         exe winnr . " wincmd w"
         normal! G
         " insert after last use or namespace or <?php
-        if search('^\s*use\_s\_[[:alnum:][:blank:]\\]*;', 'be') > 0
+        if search('(^class)\n*\s*use\_s\_[[:alnum:][:blank:]\\]*;', 'be') > 0
             put y
         elseif search('^\s*namespace\_s\_[[:alnum:][:blank:]\\]*[;{]', 'be') > 0
             exe "normal! jO\<Esc>"
