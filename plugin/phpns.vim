@@ -55,7 +55,7 @@ function! PhpInsertUse()
         substitute/^\s*namespace/use/g
         substitute/\s\+/ /g
         substitute/\s*[{;]\?\s*$/;/
-        exe "normal! 2ER\\" . cur_class . ";\<Esc>lD"
+        exe "normal! 2ER\\" . cur_class . ";\;\<Esc>lD"
     catch /.*/
         echoerr v:exception
     finally
