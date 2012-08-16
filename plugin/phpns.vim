@@ -22,6 +22,7 @@ function! PhpInsertUse()
             return
         endif
         exe "ptjump " . cur_class
+        let winnr = winnr()
         try
             wincmd P
         catch /.*/
@@ -37,7 +38,7 @@ function! PhpInsertUse()
         else
             throw cur_class . ": class not found!"
         endif
-        wincmd p
+        exe winnr . " wincmd w"
         normal! G
         " insert after last use or namespace or <?php
         if search('^\s*use\_s\_[[:alnum:][:blank:]\\]*;', 'be') > 0
