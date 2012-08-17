@@ -18,6 +18,8 @@ Add this in `~/.vim/ftplugin/php.vim`: (create the file if necessary)
 
     imap <buffer> <Leader>u <C-O>:call PhpInsertUse()<CR>
     map <buffer> <Leader>u :call PhpInsertUse()<CR>
+    
+Feel free to replace `<Leader>u` with something else, e.g. `<F5>`.
 
 The script makes use of tag files. If you don't already use a tag file you may create one with the following command; after having installed ctags-exuberant:
 
