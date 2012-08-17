@@ -33,3 +33,6 @@ or
 
 When the cursor is on a classname, hit `<Leadder>u` to add the corresponding `use` statement. (`<Leader>` is usually the `\` key.)
 
+## Credit:
+
+This a based on an equivalent script for java packages found at http://vim.wikia.com/wiki/Add_Java_import_statements_automatically (in comments).
