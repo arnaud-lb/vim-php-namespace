@@ -1,6 +1,10 @@
 # Goal
 
-vim-php-namespace is a helper script for inserting "use" statements automatically.
+vim-php-namespace is a vim script for inserting "use" statements automatically.
+
+## Features
+
+vim-php-namespace automatically inserts the `use ...` statement corresponding to the class under the cursor
 
 ## Installation:
 
@@ -8,18 +12,24 @@ vim-php-namespace is a helper script for inserting "use" statements automaticall
 
 Copy `plugin/phpns.vim` to `~/.vim/plugin/`
 
-### Add your custom mapping:
+### Add mappings:
 
-Add this in `~/.vim/ftplugin/php.vim`:
+Add this in `~/.vim/ftplugin/php.vim`: (create the file if necessary)
 
-    imap <buffer> <F5> <C-O>:call PhpInsertUse()<CR>
-    map <buffer> <F5> :call PhpInsertUse()<CR>
+    imap <buffer> <Leader>u <C-O>:call PhpInsertUse()<CR>
+    map <buffer> <Leader>u :call PhpInsertUse()<CR>
 
 The script makes use of tag files. If you don't already use a tag file you may create one with the following command; after having installed ctags-exuberant:
 
     ctags-exuberant -R --PHP-kinds=+cf
 
+or
+
+    ctags -R --PHP-kinds=+cf
+
+(The [AutoTags](http://www.vim.org/scripts/script.php?script_id=1343) plugin can update the tag file every time a file is modified.)
+
 ## Usage:
 
-When the cursor is on a classname, hit F5 to add the corresponding `use` statement.
+When the cursor is on a classname, hit `<Leadder>u` to add the corresponding `use` statement. (`<Leader>` is usually the `\` key.)
 
