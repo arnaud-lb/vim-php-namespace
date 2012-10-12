@@ -1,0 +1,17 @@
+
+Traits 1
+
+STARTTEST
+:%d
+a<?php
+
+namespace Somenamespace;
+
+class Someclass {
+
+    use FooTrait;
+    use Bar:call PhpInsertUse()
+ax:w! test.out
+:qa!
+ENDTEST
+
