@@ -29,7 +29,7 @@ function! PhpInsertUse()
             return
         endtry
         1
-        if search('^\s*\%(\%(abstract\|final\)\_s\+\)*\%(class\|interface\)\_s\+' . cur_class . '\>') > 0
+        if search('^\s*\%(\%(abstract\|final\)\_s\+\)*\%(class\|interface\|trait\)\_s\+' . cur_class . '\>') > 0
             if search('^\s*namespace\s\+', 'b') > 0
                 yank y
             else
@@ -41,7 +41,7 @@ function! PhpInsertUse()
         exe winnr . " wincmd w"
         normal! G
         " insert after last use or namespace or <?php
-        if search('^\s*use\_s\_[[:alnum:][:blank:]\\]*;', 'be') > 0
+        if search('^use\_s\_[[:alnum:][:blank:]\\]*;', 'be') > 0
             put y
         elseif search('^\s*namespace\_s\_[[:alnum:][:blank:]\\]*[;{]', 'be') > 0
             exe "normal! jO\<Esc>"
