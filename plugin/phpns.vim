@@ -28,16 +28,20 @@ endfunction
 
 function! PhpFindFqcn(clazz)
     let restorepos = line(".") . "normal!" . virtcol(".") . "|"
+    let loadedCount = 0
     try
         let fqcn = PhpFindMatchingUse(a:clazz)
         if fqcn isnot 0
             return fqcn
         endif
 
-        " search matching tags and see if some of the matching files
-        " are already loaded
         let tags = taglist("^".a:clazz."$")
-        let loadedCount = 0
+
+        if len(tags) < 1
+            throw "No tag were found for class ".a:clazz."; is your tag file up to date? Tag files in use: ".join(tagfiles(),',')
+        endif
+
+        " see if some of the matching files are already loaded
         for tag in tags
             if bufexists(tag['filename'])
                 let loadedCount += 1
@@ -99,7 +103,8 @@ function! PhpInsertUse()
             return
         endif
         let fqcn = PhpFindFqcn(cur_class)
-        if fqcn == "0"
+        if fqcn is 0
+            echo "fully qualified class name was not found"
             return
         endif
         let use = "use ".fqcn.";"
@@ -130,7 +135,7 @@ function! PhpExpandClass()
     call search('[[:alnum:]]\+', 'bcW')
     let cur_class = expand("<cword>")
     let fqcn = PhpFindFqcn(cur_class)
-    if fqcn == "0"
+    if fqcn is 0
         return
     endif
     substitute /\%#[[:alnum:]\\]\+/\=fqcn/
