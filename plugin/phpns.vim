@@ -6,9 +6,34 @@
 "
 " This is an adaptation of a script found at http://vim.wikia.com/wiki/Add_Java_import_statements_automatically
 
+let s:capture = 0
+
+function! PhpFindMatchingUse(clazz)
+
+    " matches use Foo\Bar as <class>
+    let pattern = '\%(^\|\r\|\n\)\s*use\_s\+\_[^;]\{-}\_s*\(\_[^;,]*\)\_s\+as\_s\+' . a:clazz . '\_s*[;,]'
+    let fqcn = s:searchCapture(pattern, 1)
+    if fqcn isnot 0
+        return fqcn
+    endif
+
+    " matches use Foo\<class>
+    let pattern = '\%(^\|\r\|\n\)\s*use\_s\+\_[^;]\{-}\_s*\(\_[^;,]*\%(\\\|\_s\)' . a:clazz . '\)\_s*[;,]'
+    let fqcn = s:searchCapture(pattern, 1)
+    if fqcn isnot 0
+        return fqcn
+    endif
+
+endfunction
+
 function! PhpFindFqcn(clazz)
     let restorepos = line(".") . "normal!" . virtcol(".") . "|"
     try
+        let fqcn = PhpFindMatchingUse(a:clazz)
+        if fqcn isnot 0
+            return fqcn
+        endif
+
         " search matching tags and see if some of the matching files
         " are already loaded
         let tags = taglist("^".a:clazz."$")
@@ -114,5 +139,16 @@ function! PhpExpandClass()
     exe restorepos
     " move cursor after fqcn
     call search('\([[:blank:]]*[[:alnum:]\\]\)*', 'ceW')
+endfunction
+
+function s:searchCapture(pattern, nr)
+    let s:capture = 0
+    let str = join(getline(0, line('$')),"\n")
+    call substitute(str, a:pattern, '\=[submatch(0), s:saveCapture(submatch('.a:nr.'))][0]', 'e')
+    return s:capture
+endfunction
+
+function s:saveCapture(capture)
+    let s:capture = a:capture
 endfunction
 
