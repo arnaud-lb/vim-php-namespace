@@ -36,12 +36,25 @@ or
 
 ## Usage:
 
-When the cursor is on a classname, hit `<Leadder>u` to add the corresponding `use` statement.
+When the cursor is on a classname (or just after), hit `<Leadder>u` to add the corresponding `use` statement:
 
-Or hit `<Leadder>e` to expand it to its fully qualified name.
+``` php
+<?php
+new Response<-- cursor here or on the name; hit \u now to insert the use statement
+```
+
+Or hit `<Leadder>e` to expand it to its fully qualified name (works in quoted strings too):
+
+``` php
+<?php
+$this->getMock('RouterInterface<-- cursor here or on the name; hit \e now to expand the class name'
+```
 
 `<Leader>` is usually the `\` key.
 
-## Credit:
+## Credits:
 
-This a based on an equivalent script for java packages found at http://vim.wikia.com/wiki/Add_Java_import_statements_automatically (in comments).
+ * Arnaud Le Blanc
+ * [Contributors](https://github.com/arnaud-lb/vim-php-namespace/graphs/contributors)
+
+This is based on an equivalent script for java packages found at http://vim.wikia.com/wiki/Add_Java_import_statements_automatically (in comments).
