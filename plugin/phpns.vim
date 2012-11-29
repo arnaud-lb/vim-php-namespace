@@ -9,6 +9,16 @@
 function! PhpFindFqcn(clazz)
     let restorepos = line(".") . "normal!" . virtcol(".") . "|"
     try
+        " search matching tags and see if some of the matching files
+        " are already loaded
+        let tags = taglist("^".a:clazz."$")
+        let loadedCount = 0
+        for tag in tags
+            if bufexists(tag['filename'])
+                let loadedCount += 1
+            endif
+        endfor
+
         exe "ptjump " . a:clazz
         try
             wincmd P
@@ -30,10 +40,21 @@ function! PhpFindFqcn(clazz)
             throw a:clazz . ": class not found!"
         endif
     finally
-        " wipe preview window (from buffer list)
-        silent! wincmd P
-        if &previewwindow
-            bwipeout
+        let loadedCountNew = 0
+        for tag in tags
+            if bufexists(tag['filename'])
+                let loadedCountNew += 1
+            endif
+        endfor
+
+        if loadedCountNew > loadedCount
+            " wipe preview window (from buffer list)
+            silent! wincmd P
+            if &previewwindow
+                bwipeout
+            endif
+        else
+            wincmd z
         endif
         exe restorepos
     endtry
