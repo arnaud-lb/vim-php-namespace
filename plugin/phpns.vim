@@ -81,7 +81,7 @@ endfunction
 function! PhpExpandClass()
     let restorepos = line(".") . "normal!" . virtcol(".") . "|"
     " move to last element
-    call search('[[:alnum:]\\]\+', 'cW')
+    call search('\%#[[:alnum:]\\]\+', 'cW')
     " move to first char of last element
     call search('[[:alnum:]]\+', 'bcW')
     let cur_class = expand("<cword>")
