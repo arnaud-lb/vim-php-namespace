@@ -92,12 +92,10 @@ function! PhpInsertUse()
     call search('[[:alnum:]\\]\+', 'bcW')
     let cur_class = expand("<cword>")
     try
-        " this matches
-        "  - use Foo\<cur_class>
-        "  - use Foo\Bar as <cur_class>
-        if search('^\s*use\_s\+\_[^;]*\%(\\\|\_s\)' . cur_class . '\_s*[;,]') > 0
-            echo "import for " . cur_class . " already exist"
+        let fqcn = PhpFindMatchingUse(cur_class)
+        if fqcn isnot 0
             exe "normal! `z"
+            echo "import for " . cur_class . " already exists"
             return
         endif
         let fqcn = PhpFindFqcn(cur_class)
