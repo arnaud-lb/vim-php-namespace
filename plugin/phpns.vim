@@ -29,6 +29,7 @@ endfunction
 function! PhpFindFqcn(clazz)
     let restorepos = line(".") . "normal!" . virtcol(".") . "|"
     let loadedCount = 0
+    let tags = []
     try
         let fqcn = PhpFindMatchingUse(a:clazz)
         if fqcn isnot 0
