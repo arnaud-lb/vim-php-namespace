@@ -4,7 +4,37 @@ vim-php-namespace is a vim script for inserting "use" statements automatically.
 
 ## Features
 
-vim-php-namespace can automatically inserts the `use ...` statement corresponding to the class under the cursor, or expand the class to the fully qualified class name.
+### Import classes (add use statements)
+
+Automatically adds the corresponding `use` statement for the class under the cursor.
+
+To use this feature, add the following mappings  in `~/.vim/ftplugin/php.vim`: (create the file if necessary)
+
+    imap <buffer> <Leader>u <C-O>:call PhpInsertUse()<CR>
+    map <buffer> <Leader>u :call PhpInsertUse()<CR>
+
+Then, hitting `\u` in normal or insert mode will import the class under the cursor.
+
+``` php
+<?php
+new Response<-- cursor here or on the name; hit \u now to insert the use statement
+```
+
+### Make class names fully qualified
+
+Expands the class name under the cursor to its fully qualified name.
+
+To use this feature, add the following mappings  in `~/.vim/ftplugin/php.vim`: (create the file if necessary)
+
+    imap <buffer> <Leader>e <C-O>:call PhpExpandClass()<CR>
+    map <buffer> <Leader>e :call PhpExpandClass()<CR>
+
+Then, hitting `\e` in normal or insert mode will expand the class name to a fully qualified name.
+
+``` php
+<?php
+$this->getMock('RouterInterface<-- cursor here or on the name; hit \e now to expand the class name'
+```
 
 ## Installation:
 
@@ -12,19 +42,9 @@ vim-php-namespace can automatically inserts the `use ...` statement correspondin
 
 Copy `plugin/phpns.vim` to `~/.vim/plugin/`
 
-### Add mappings:
+### Generate a tag file
 
-Add this in `~/.vim/ftplugin/php.vim`: (create the file if necessary)
-
-    imap <buffer> <Leader>u <C-O>:call PhpInsertUse()<CR>
-    map <buffer> <Leader>u :call PhpInsertUse()<CR>
-
-    imap <buffer> <Leader>e <C-O>:call PhpExpandClass()<CR>
-    map <buffer> <Leader>e :call PhpExpandClass()<CR>
-    
-Feel free to replace `<Leader>u` and `<Leader>e` with something else, e.g. `<F5>`.
-
-The script makes use of tag files. If you don't already use a tag file you may create one with the following command; after having installed ctags-exuberant:
+The plugin makes use of tag files. If you don't already use a tag file you may create one with the following command; after having installed the `ctags` or `ctags-exuberant` package:
 
     ctags-exuberant -R --PHP-kinds=+cf
 
@@ -32,25 +52,13 @@ or
 
     ctags -R --PHP-kinds=+cf
 
-(The [AutoTags](http://www.vim.org/scripts/script.php?script_id=1343) plugin can update the tag file every time a file is modified.)
+The [AutoTags](http://www.vim.org/scripts/script.php?script_id=1343) plugin can update the tag file every time you modify or create a file under vim.
 
-## Usage:
+### Key mappings
 
-When the cursor is on a classname (or just after), hit `<Leadder>u` to add the corresponding `use` statement:
+See [Features](#features) section for adding key mappings.
 
-``` php
-<?php
-new Response<-- cursor here or on the name; hit \u now to insert the use statement
-```
-
-Or hit `<Leadder>e` to expand it to its fully qualified name (works in quoted strings too):
-
-``` php
-<?php
-$this->getMock('RouterInterface<-- cursor here or on the name; hit \e now to expand the class name'
-```
-
-`<Leader>` is usually the `\` key.
+The `<Leader>` key usually is `\`.
 
 ## Credits:
 
