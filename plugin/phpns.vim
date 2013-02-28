@@ -145,14 +145,14 @@ function! PhpExpandClass()
     call search('\([[:blank:]]*[[:alnum:]\\]\)*', 'ceW')
 endfunction
 
-function s:searchCapture(pattern, nr)
+function! s:searchCapture(pattern, nr)
     let s:capture = 0
     let str = join(getline(0, line('$')),"\n")
     call substitute(str, a:pattern, '\=[submatch(0), s:saveCapture(submatch('.a:nr.'))][0]', 'e')
     return s:capture
 endfunction
 
-function s:saveCapture(capture)
+function! s:saveCapture(capture)
     let s:capture = a:capture
 endfunction
 
