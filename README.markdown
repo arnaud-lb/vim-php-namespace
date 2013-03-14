@@ -8,10 +8,10 @@ vim-php-namespace is a vim script for inserting "use" statements automatically.
 
 Automatically adds the corresponding `use` statement for the class under the cursor.
 
-To use this feature, add the following mappings  in `~/.vim/ftplugin/php.vim`: (create the file if necessary)
+To use this feature, add the following mappings in `~/.vimrc`:
 
-    imap <buffer> <Leader>u <C-O>:call PhpInsertUse()<CR>
-    map <buffer> <Leader>u :call PhpInsertUse()<CR>
+    inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
+    noremap <Leader>u :call PhpInsertUse()<CR>
 
 Then, hitting `\u` in normal or insert mode will import the class under the cursor.
 
@@ -24,10 +24,10 @@ new Response<-- cursor here or on the name; hit \u now to insert the use stateme
 
 Expands the class name under the cursor to its fully qualified name.
 
-To use this feature, add the following mappings  in `~/.vim/ftplugin/php.vim`: (create the file if necessary)
+To use this feature, add the following mappings  in `~/.vimrc`:
 
-    imap <buffer> <Leader>e <C-O>:call PhpExpandClass()<CR>
-    map <buffer> <Leader>e :call PhpExpandClass()<CR>
+    inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+    noremap <Leader>e :call PhpExpandClass()<CR>
 
 Then, hitting `\e` in normal or insert mode will expand the class name to a fully qualified name.
 
@@ -38,9 +38,31 @@ $this->getMock('RouterInterface<-- cursor here or on the name; hit \e now to exp
 
 ## Installation:
 
-### If you don't use tpope/pathogen:
+### Using [pathogen](https://github.com/tpope/vim-pathogen)
 
-Copy `plugin/phpns.vim` to `~/.vim/plugin/`
+``` sh
+git clone git://github.com/arnaud-lb/vim-php-namespace.git ~/.vim/bundle/vim-php-namespace
+```
+
+### Using [vundle](https://github.com/gmarik/vundle)
+
+Add to vimrc:
+
+``` vim
+Bundle 'arnaud-lb/vim-php-namespace'
+```
+
+Run command in vim:
+
+``` vim
+:BundleInstall
+```
+
+### Manual installation
+
+Download and copy `plugin/phpns.vim` to `~/.vim/plugin/`
+
+## Post installation
 
 ### Generate a tag file
 
