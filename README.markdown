@@ -73,8 +73,29 @@ The plugin makes use of tag files. If you don't already use a tag file you may c
 or
 
     ctags -R --PHP-kinds=+cf
+    
+#### Traits
+    
+ctags doesn't indexes [traits](http://php.net/traits) by default, you have to add a `--regex-php` option to index them:
 
-The [AutoTags](http://www.vim.org/scripts/script.php?script_id=1343) plugin can update the tag file every time you modify or create a file under vim.
+    ctags -R --PHP-kinds=+cf --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
+
+#### Automatically updating tags
+
+The [AutoTags](http://www.vim.org/scripts/script.php?script_id=1343) plugin can update the tags file every time a file is created or modified under vim.
+
+To keep updates fast, AutoTags won't operate if the tags file exceeds 7MB. To avoid exceeding this limit on projects with many dependencies, use a separate tags file for dependencies:
+
+    # dependencies tags file (index only the vendor directory, and save tags in ./tags.vendors)
+    ctags -R --PHP-kinds=+cf -f tags.vendors vendor
+
+    # project tags file (index only src, and save tags in ./tags; AutoTags will update this one)
+    ctags -R --PHP-kinds=+cf src
+
+Do not forget to load both files in vim:
+
+    " ~/.vimrc
+    set tags+=./tags.vendors,tags.vendors
 
 ### Key mappings
 
@@ -87,4 +108,4 @@ The `<Leader>` key usually is `\`.
  * Arnaud Le Blanc
  * [Contributors](https://github.com/arnaud-lb/vim-php-namespace/graphs/contributors)
 
-This is based on an equivalent script for java packages found at http://vim.wikia.com/wiki/Add_Java_import_statements_automatically (in comments).
+This was originally based on a similar script for java packages found at http://vim.wikia.com/wiki/Add_Java_import_statements_automatically (in comments).
