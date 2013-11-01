@@ -57,7 +57,7 @@ function! PhpFindFqcn(clazz)
         endtry
         1
         if search('^\s*\%(\%(abstract\|final\)\_s\+\)*\%(class\|interface\|trait\)\_s\+' . a:clazz . '\>') > 0
-            if search('^\s*namespace\s\+', 'be') > 0
+            if search('^\%(<?\%(php\s\+\)\?\)\?\s*namespace\s\+', 'be') > 0
                 let start = col('.')
                 call search('\([[:blank:]]*[[:alnum:]\\]\)*', 'ce')
                 let end = col('.')
