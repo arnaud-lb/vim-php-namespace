@@ -139,6 +139,7 @@ function! PhpExpandClass()
     if fqcn is 0
         return
     endif
+    let fqcn = '\' . fqcn
     substitute /\%#[[:alnum:]\\]\+/\=fqcn/
     exe restorepos
     " move cursor after fqcn
