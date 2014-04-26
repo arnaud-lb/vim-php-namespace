@@ -1,0 +1,12 @@
+
+Basic test 1
+
+STARTTEST
+:%d
+a<?php
+
+class Bar:call PhpInsertUse()
+ax:w! test.out
+:qa!
+ENDTEST
+
