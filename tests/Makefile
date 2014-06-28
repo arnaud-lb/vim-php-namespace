@@ -52,5 +52,9 @@ newtest:
 	cp $(from).in $(to).in
 	cp $(from).ok $(to).ok
 	cp -rf $(from).fixtures $(to).fixtures
-	find $(to).fixtures -type f|xargs sed -i 's@$(from)\.fixtures@$(to).fixtures@g'
+	find $(to).fixtures -type f|while read f; do \
+		cp "$$f" "$$f.tmp"; \
+		sed 's@$(from)\.fixtures@$(to).fixtures@g' < "$$f.tmp" > "$$f"; \
+		rm "$$f.tmp"; \
+	done
 
