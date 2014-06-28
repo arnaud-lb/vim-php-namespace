@@ -16,7 +16,7 @@ report:
 	@echo 'Test results:'
 	@/bin/sh -c "if test -f test.log; \
 		then cat test.log; echo TEST FAILURE; exit 1; \
-		else echo ALL DONE; \
+		else echo ALL OK; \
 		fi"
 
 clean:
