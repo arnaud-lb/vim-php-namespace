@@ -59,7 +59,7 @@ function! PhpFindFqcn(clazz)
         if search('^\s*\%(\%(abstract\|final\)\_s\+\)*\%(class\|interface\|trait\)\_s\+' . a:clazz . '\>') > 0
             if search('^\%(<?\%(php\s\+\)\?\)\?\s*namespace\s\+', 'be') > 0
                 let start = col('.')
-                call search('\([[:blank:]]*[[:alnum:]\\]\)*', 'ce')
+                call search('\([[:blank:]]*[[:alnum:]\\_]\)*', 'ce')
                 let end = col('.')
                 let ns = strpart(getline(line('.')), start, end-start)
                 return ns . "\\" . a:clazz
@@ -94,7 +94,7 @@ function! PhpInsertUse()
     exe "normal mz"
     " move to the first component
     " Foo\Bar => move to the F
-    call search('[[:alnum:]\\]\+', 'bcW')
+    call search('[[:alnum:]\\_]\+', 'bcW')
     let cur_class = expand("<cword>")
     try
         let fqcn = PhpFindMatchingUse(cur_class)
@@ -110,9 +110,9 @@ function! PhpInsertUse()
         endif
         let use = "use ".fqcn.";"
         " insert after last use or namespace or <?php
-        if search('^use\_s\_[[:alnum:][:blank:]\\]*;', 'be') > 0
+        if search('^use\_s\_[[:alnum:][:blank:]\\_]*;', 'be') > 0
             call append(line('.'), use)
-        elseif search('^\s*namespace\_s\_[[:alnum:][:blank:]\\]*[;{]', 'be') > 0
+        elseif search('^\s*namespace\_s\_[[:alnum:][:blank:]\\_]*[;{]', 'be') > 0
             call append(line('.'), "")
             call append(line('.')+1, use)
         elseif search('<?\%(php\)\?', 'be') > 0
@@ -131,18 +131,18 @@ endfunction
 function! PhpExpandClass()
     let restorepos = line(".") . "normal!" . virtcol(".") . "|"
     " move to last element
-    call search('\%#[[:alnum:]\\]\+', 'cW')
+    call search('\%#[[:alnum:]\\_]\+', 'cW')
     " move to first char of last element
-    call search('[[:alnum:]]\+', 'bcW')
+    call search('[[:alnum:]_]\+', 'bcW')
     let cur_class = expand("<cword>")
     let fqcn = PhpFindFqcn(cur_class)
     if fqcn is 0
         return
     endif
-    substitute /\%#[[:alnum:]\\]\+/\=fqcn/
+    substitute /\%#[[:alnum:]\\_]\+/\=fqcn/
     exe restorepos
     " move cursor after fqcn
-    call search('\([[:blank:]]*[[:alnum:]\\]\)*', 'ceW')
+    call search('\([[:blank:]]*[[:alnum:]\\_]\)*', 'ceW')
 endfunction
 
 function! s:searchCapture(pattern, nr)
