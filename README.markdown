@@ -1,6 +1,6 @@
 # Goal
 
-vim-php-namespace is a vim script for inserting "use" statements automatically.
+vim-php-namespace is a vim plugin for inserting "use" statements automatically.
 
 ## Features
 
@@ -79,6 +79,10 @@ or
 ctags doesn't indexes [traits](http://php.net/traits) by default, you have to add a `--regex-php` option to index them:
 
     ctags -R --PHP-kinds=+cf --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
+    
+Alternatively, create a `~/.ctags` file with the following contents:
+
+    --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
 
 #### Automatically updating tags
 
@@ -88,7 +92,7 @@ To keep updates fast, AutoTags won't operate if the tags file exceeds 7MB. To av
 
     # dependencies tags file (index only the vendor directory, and save tags in ./tags.vendors)
     ctags -R --PHP-kinds=+cf -f tags.vendors vendor
-
+    
     # project tags file (index only src, and save tags in ./tags; AutoTags will update this one)
     ctags -R --PHP-kinds=+cf src
 
