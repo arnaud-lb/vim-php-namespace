@@ -64,7 +64,7 @@ function! PhpFindFqcn(clazz)
                 let ns = strpart(getline(line('.')), start, end-start)
                 return ns . "\\" . a:clazz
             else
-                throw "Namespace definition for " . a:clazz . " not found!"
+                return a:clazz
             endif
         else
             throw a:clazz . ": class not found!"
