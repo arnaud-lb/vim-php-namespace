@@ -83,6 +83,8 @@ ctags doesn't indexes [traits](http://php.net/traits) by default, you have to ad
 Alternatively, create a `~/.ctags` file with the following contents:
 
     --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
+    
+You could also use [this patched version of ctags](https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags)
 
 #### Automatically updating tags
 
