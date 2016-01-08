@@ -101,7 +101,7 @@ To keep updates fast, AutoTags won't operate if the tags file exceeds 7MB. To av
 Do not forget to load both files in vim:
 
     " ~/.vimrc
-    set tags+=./tags.vendors,tags.vendors
+    set tags+=tags,tags.vendors
 
 ### Key mappings
 
