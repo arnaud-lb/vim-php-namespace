@@ -10,8 +10,13 @@ Automatically adds the corresponding `use` statement for the class under the cur
 
 To use this feature, add the following mappings in `~/.vimrc`:
 
-    inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
-    noremap <Leader>u :call PhpInsertUse()<CR>
+    function! IPhpInsertUse()
+        call PhpInsertUse()
+        call feedkeys('a',  'n')
+    endfunction
+    autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+    autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
+
 
 Then, hitting `\u` in normal or insert mode will import the class under the cursor.
 
