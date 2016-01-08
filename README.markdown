@@ -31,8 +31,12 @@ Expands the class name under the cursor to its fully qualified name.
 
 To use this feature, add the following mappings  in `~/.vimrc`:
 
-    inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
-    noremap <Leader>e :call PhpExpandClass()<CR>
+    function! IPhpExpandClass()
+        call PhpExpandClass()
+        call feedkeys('a', 'n')
+    endfunction
+    autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
+    autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
 
 Then, hitting `\e` in normal or insert mode will expand the class name to a fully qualified name.
 
