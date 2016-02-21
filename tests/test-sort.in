@@ -1,0 +1,17 @@
+
+Sort test 1
+
+STARTTEST
+:%d
+a<?php
+
+use Goo\Baz;
+use Foo\Bar;
+
+class Boo
+{
+}:call PhpSortUse()
+ax:w! test.out
+:qa!
+ENDTEST
+

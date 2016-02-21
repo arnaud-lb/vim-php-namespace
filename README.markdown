@@ -45,6 +45,18 @@ Then, hitting `\e` in normal or insert mode will expand the class name to a full
 $this->getMock('RouterInterface<-- cursor here or on the name; hit \e now to expand the class name'
 ```
 
+### Sort existing use statements alphabetically
+
+If you do not know how to organize use statements, (or anything else, for that
+matter), the alphabetical order might be a sensible choice, because it makes
+finding what you are looking for easier, and reduces the risk for conflicts :
+if everyone adds new things at the same line, conflicts are guaranteed.
+
+This vim plugin defines a `PhpSortUse()` you may use in your mappings:
+
+    autocmd FileType php inoremap <Leader>s <Esc>:call PhpSortUse()<CR>
+    autocmd FileType php noremap <Leader>s :call PhpSortUse()<CR>
+
 ## Installation:
 
 ### Using [pathogen](https://github.com/tpope/vim-pathogen)
