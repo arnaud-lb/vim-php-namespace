@@ -1,0 +1,8 @@
+<?php
+
+use Foo\Bar;
+use Goo\Baz;
+
+class Boo
+{
+}x

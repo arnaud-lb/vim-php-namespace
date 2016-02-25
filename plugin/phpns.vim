@@ -156,3 +156,13 @@ function! s:saveCapture(capture)
     let s:capture = a:capture
 endfunction
 
+function! PhpSortUse()
+    let restorepos = line(".") . "normal!" . virtcol(".") . "|"
+     " insert after last use or namespace or <?php
+    if search('^use\_s\_[[:alnum:][:blank:]\\_]*;', 'be') > 0
+        execute "'{,'}-1sort"
+    else
+        throw "No use statements found."
+    endif
+    exe restorepos
+endfunction
