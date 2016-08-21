@@ -1,0 +1,9 @@
+<?php
+
+namespace Something;
+
+use Abc\Def;
+use Foo\Bar;
+use Foo\Baz;
+
+class Barx

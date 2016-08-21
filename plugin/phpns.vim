@@ -8,6 +8,8 @@
 
 let s:capture = 0
 
+let g:php_namespaces_sort_after_insert = get(g:, 'php_namespaces_sort_after_insert', 0)
+
 function! PhpFindMatchingUse(clazz)
 
     " matches use Foo\Bar as <class>
@@ -120,6 +122,9 @@ function! PhpInsertUse()
             call append(line('.')+1, use)
         else
             call append(1, use)
+        endif
+        if g:php_namespaces_sort_after_insert
+            call PhpSortUse()
         endif
     catch /.*/
         echoerr v:exception
