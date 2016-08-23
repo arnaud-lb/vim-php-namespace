@@ -10,7 +10,7 @@ namespace Something;
 use Abc\Def;
 use Foo\Baz;
 
-class Bar:let g:php_namespaces_sort_after_insert=1
+class Bar:let g:php_namespace_sort_after_insert=1
 :call PhpInsertUse()
 ax:w! test.out
 :qa!

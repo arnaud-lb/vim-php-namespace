@@ -8,7 +8,7 @@
 
 let s:capture = 0
 
-let g:php_namespaces_sort_after_insert = get(g:, 'php_namespaces_sort_after_insert', 0)
+let g:php_namespace_sort_after_insert = get(g:, 'php_namespace_sort_after_insert', 0)
 
 function! PhpFindMatchingUse(clazz)
 
@@ -123,7 +123,7 @@ function! PhpInsertUse()
         else
             call append(1, use)
         endif
-        if g:php_namespaces_sort_after_insert
+        if g:php_namespace_sort_after_insert
             call PhpSortUse()
         endif
     catch /.*/
