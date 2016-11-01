@@ -9,6 +9,8 @@
 let s:capture = 0
 
 let g:php_namespace_sort_after_insert = get(g:, 'php_namespace_sort_after_insert', 0)
+let g:leading_backslash_on_fqcn_expand = get(g:, 'leading_backslash_on_fqcn_expand', 0)
+
 
 function! PhpFindMatchingUse(clazz)
 
@@ -144,6 +146,10 @@ function! PhpExpandClass()
     if fqcn is 0
         return
     endif
+    " add leading backslash if configured
+   	if g:leading_backslash_on_fqcn_expand
+		let fqcn = "\\".fqcn
+	endif
     substitute /\%#[[:alnum:]\\_]\+/\=fqcn/
     exe restorepos
     " move cursor after fqcn
