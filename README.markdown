@@ -45,6 +45,10 @@ Then, hitting `\e` in normal or insert mode will expand the class name to a full
 $this->getMock('RouterInterface<-- cursor here or on the name; hit \e now to expand the class name'
 ```
 
+By default, a leading backslash is omitted when expanding to a FQCN. To enable the addition of a leading backslash, use the dedicated global option:
+
+    let g:leading_backslash_on_fqcn_expand = 1
+
 ### Sort existing use statements alphabetically
 
 If you do not know how to organize use statements, (or anything else, for that
