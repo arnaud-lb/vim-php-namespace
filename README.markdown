@@ -4,9 +4,9 @@ vim-php-namespace is a vim plugin for inserting "use" statements automatically.
 
 ## Features
 
-### Import classes (add use statements)
+### Import classes or functions (add use statements)
 
-Automatically adds the corresponding `use` statement for the class under the cursor.
+Automatically adds the corresponding `use` statement for the name under the cursor.
 
 To use this feature, add the following mappings in `~/.vimrc`:
 
@@ -18,16 +18,16 @@ To use this feature, add the following mappings in `~/.vimrc`:
     autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 
-Then, hitting `\u` in normal or insert mode will import the class under the cursor.
+Then, hitting `\u` in normal or insert mode will import the class or function under the cursor.
 
 ``` php
 <?php
 new Response<-- cursor here or on the name; hit \u now to insert the use statement
 ```
 
-### Make class names fully qualified
+### Make class or function names fully qualified
 
-Expands the class name under the cursor to its fully qualified name.
+Expands the name under the cursor to its fully qualified name.
 
 To use this feature, add the following mappings  in `~/.vimrc`:
 
@@ -38,7 +38,7 @@ To use this feature, add the following mappings  in `~/.vimrc`:
     autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
     autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
 
-Then, hitting `\e` in normal or insert mode will expand the class name to a fully qualified name.
+Then, hitting `\e` in normal or insert mode will expand the name to a fully qualified name.
 
 ``` php
 <?php
@@ -68,6 +68,20 @@ To enable this feature, use the dedicated global option:
 
 ``` sh
 git clone git://github.com/arnaud-lb/vim-php-namespace.git ~/.vim/bundle/vim-php-namespace
+```
+
+### Using [vim-plug](https://github.com/junegunn/vim-plug)
+
+Add to vimrc:
+
+``` vim
+Plug 'arnaud-lb/vim-php-namespace'
+```
+
+Run command in vim:
+
+``` vim
+:PlugInstall
 ```
 
 ### Using [vundle](https://github.com/gmarik/vundle)
