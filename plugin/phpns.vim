@@ -10,38 +10,38 @@ let s:capture = 0
 
 let g:php_namespace_sort_after_insert = get(g:, 'php_namespace_sort_after_insert', 0)
 
-function! PhpFindMatchingUse(clazz)
+function! PhpFindMatchingUse(name)
 
-    " matches use Foo\Bar as <class>
-    let pattern = '\%(^\|\r\|\n\)\s*use\_s\+\_[^;]\{-}\_s*\(\_[^;,]*\)\_s\+as\_s\+' . a:clazz . '\_s*[;,]'
-    let fqcn = s:searchCapture(pattern, 1)
-    if fqcn isnot 0
-        return fqcn
+    " matches use [function] Foo\Bar as <name>
+    let pattern = '\%(^\|\r\|\n\)\s*use\%(\_s+function\)\?\_s\+\_[^;]\{-}\_s*\(\_[^;,]*\)\_s\+as\_s\+' . a:name . '\_s*[;,]'
+    let fqn = s:searchCapture(pattern, 1)
+    if fqn isnot 0
+        return fqn
     endif
 
-    " matches use Foo\<class>
-    let pattern = '\%(^\|\r\|\n\)\s*use\_s\+\_[^;]\{-}\_s*\(\_[^;,]*\%(\\\|\_s\)' . a:clazz . '\)\_s*[;,]'
-    let fqcn = s:searchCapture(pattern, 1)
-    if fqcn isnot 0
-        return fqcn
+    " matches use [function] Foo\<name>
+    let pattern = '\%(^\|\r\|\n\)\s*use\%(\_s+function\)\?\_s\+\_[^;]\{-}\_s*\(\_[^;,]*\%(\\\|\_s\)' . a:name . '\)\_s*[;,]'
+    let fqn = s:searchCapture(pattern, 1)
+    if fqn isnot 0
+        return fqn
     endif
 
 endfunction
 
-function! PhpFindFqcn(clazz)
+function! PhpFindFqn(name)
     let restorepos = line(".") . "normal!" . virtcol(".") . "|"
     let loadedCount = 0
     let tags = []
     try
-        let fqcn = PhpFindMatchingUse(a:clazz)
-        if fqcn isnot 0
-            return fqcn
+        let fqn = PhpFindMatchingUse(a:name)
+        if fqn isnot 0
+            return ['class', fqn]
         endif
 
-        let tags = taglist("^".a:clazz."$")
+        let tags = taglist("^".a:name."$")
 
         if len(tags) < 1
-            throw "No tag were found for class ".a:clazz."; is your tag file up to date? Tag files in use: ".join(tagfiles(),',')
+            throw "No tag were found for ".a:name."; is your tag file up to date? Tag files in use: ".join(tagfiles(),',')
         endif
 
         " see if some of the matching files are already loaded
@@ -51,25 +51,36 @@ function! PhpFindFqcn(clazz)
             endif
         endfor
 
-        exe "ptjump " . a:clazz
+        exe "ptjump " . a:name
         try
             wincmd P
         catch /.*/
             return
         endtry
         1
-        if search('^\s*\%(\%(abstract\|final\)\_s\+\)*\%(class\|interface\|trait\)\_s\+' . a:clazz . '\>') > 0
+        if search('^\s*\%(\%(abstract\|final\)\_s\+\)*\%(class\|interface\|trait\)\_s\+' . a:name . '\>') > 0
             if search('^\%(<?\%(php\s\+\)\?\)\?\s*namespace\s\+', 'be') > 0
                 let start = col('.')
                 call search('\([[:blank:]]*[[:alnum:]\\_]\)*', 'ce')
                 let end = col('.')
                 let ns = strpart(getline(line('.')), start, end-start)
-                return ns . "\\" . a:clazz
+                return ['class', ns . "\\" . a:name]
             else
-                return a:clazz
+                return a:name
             endif
+        elseif search('^\s*function\_s\+' . a:name . '\>') > 0
+            if search('^\%(<?\%(php\s\+\)\?\)\?\s*namespace\s\+', 'be') > 0
+                let start = col('.')
+                call search('\([[:blank:]]*[[:alnum:]\\_]\)*', 'ce')
+                let end = col('.')
+                let ns = strpart(getline(line('.')), start, end-start)
+                return ['function', ns . "\\" . a:name]
+            else
+                return a:name
+            endif
+
         else
-            throw a:clazz . ": class not found!"
+            throw a:name . ": not found!"
         endif
     finally
         let loadedCountNew = 0
@@ -97,22 +108,26 @@ function! PhpInsertUse()
     " move to the first component
     " Foo\Bar => move to the F
     call search('[[:alnum:]\\_]\+', 'bcW')
-    let cur_class = expand("<cword>")
+    let cur_name = expand("<cword>")
     try
-        let fqcn = PhpFindMatchingUse(cur_class)
-        if fqcn isnot 0
+        let fqn = PhpFindMatchingUse(cur_name)
+        if fqn isnot 0
             exe "normal! `z"
-            echo "import for " . cur_class . " already exists"
+            echo "import for " . cur_name . " already exists"
             return
         endif
-        let fqcn = PhpFindFqcn(cur_class)
-        if fqcn is 0
+        let tfqn = PhpFindFqn(cur_name)
+        if tfqn is 0
             echo "fully qualified class name was not found"
             return
         endif
-        let use = "use ".fqcn.";"
+        if tfqn[0] == 'function'
+            let use = "use function ".tfqn[1].";"
+        else
+            let use = "use ".tfqn[1].";"
+        endif
         " insert after last use or namespace or <?php
-        if search('^use\_s\_[[:alnum:][:blank:]\\_]*;', 'be') > 0
+        if search('^use\_s\%(function\_s\+\)\?\_[[:alnum:][:blank:]\\_]*;', 'be') > 0
             call append(line('.'), use)
         elseif search('^\s*namespace\_s\_[[:alnum:][:blank:]\\_]*[;{]', 'be') > 0
             call append(line('.'), "")
@@ -140,13 +155,13 @@ function! PhpExpandClass()
     " move to first char of last element
     call search('[[:alnum:]_]\+', 'bcW')
     let cur_class = expand("<cword>")
-    let fqcn = PhpFindFqcn(cur_class)
-    if fqcn is 0
+    let fqn = PhpFindFqn(cur_class)
+    if fqn is 0
         return
     endif
-    substitute /\%#[[:alnum:]\\_]\+/\=fqcn/
+    substitute /\%#[[:alnum:]\\_]\+/\=fqn[1]/
     exe restorepos
-    " move cursor after fqcn
+    " move cursor after fqn
     call search('\([[:blank:]]*[[:alnum:]\\_]\)*', 'ceW')
 endfunction
 
