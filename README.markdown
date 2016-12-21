@@ -57,7 +57,7 @@ This vim plugin defines a `PhpSortUse()` you may use in your mappings:
     autocmd FileType php inoremap <Leader>s <Esc>:call PhpSortUse()<CR>
     autocmd FileType php noremap <Leader>s :call PhpSortUse()<CR>
 
-On top of that, you may want to have the dependencies every time you insert one.
+On top of that, you may want to have the dependencies sorted every time you insert one.
 To enable this feature, use the dedicated global option:
 
     let g:php_namespace_sort_after_insert = 1
