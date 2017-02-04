@@ -131,10 +131,10 @@ The [AutoTags](http://www.vim.org/scripts/script.php?script_id=1343) plugin can 
 To keep updates fast, AutoTags won't operate if the tags file exceeds 7MB. To avoid exceeding this limit on projects with many dependencies, use a separate tags file for dependencies:
 
     # dependencies tags file (index only the vendor directory, and save tags in ./tags.vendors)
-    ctags -R --PHP-kinds=+cf -f tags.vendors vendor
+    ctags -R --PHP-kinds=cfi -f tags.vendors vendor
 
     # project tags file (index only src, and save tags in ./tags; AutoTags will update this one)
-    ctags -R --PHP-kinds=+cf src
+    ctags -R --PHP-kinds=cfi src
 
 Do not forget to load both files in vim:
 
