@@ -106,25 +106,23 @@ Download and copy `plugin/phpns.vim` to `~/.vim/plugin/`
 
 ### Generate a tag file
 
-The plugin makes use of tag files. If you don't already use a tag file you may create one with the following command; after having installed the `ctags` or `ctags-exuberant` package:
+The plugin makes use of tag files. If you don't already use a tag file you may create one with the following command; after having installed the `ctags` package:
 
-    ctags-exuberant -R --PHP-kinds=+cf
-
-or
-
-    ctags -R --PHP-kinds=+cf
+    ctags-exuberant -R --PHP-kinds=cfi
 
 #### Traits
 
-ctags doesn't indexes [traits](http://php.net/traits) by default, you have to add a `--regex-php` option to index them:
+[universal-ctags] supports traits natively (with `--php-kinds=cfit`).
 
-    ctags -R --PHP-kinds=+cf --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
+If you can't use universal-ctags, the `--regex-php` argument allows to extract traits:
 
-Alternatively, create a `~/.ctags` file with the following contents:
+    ctags -R --PHP-kinds=cfi --regex-php="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i"
+
+You can also create a `~/.ctags` file with the following contents:
 
     --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
 
-You could also use [this patched version of ctags](https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags)
+Note that using `--regex-php=` is 10x slower than using universal-ctags.
 
 #### Automatically updating tags
 
