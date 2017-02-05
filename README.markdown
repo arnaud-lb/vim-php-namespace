@@ -108,7 +108,7 @@ Download and copy `plugin/phpns.vim` to `~/.vim/plugin/`
 
 The plugin makes use of tag files. If you don't already use a tag file you may create one with the following command; after having installed the `ctags` package:
 
-    ctags-exuberant -R --PHP-kinds=cfi
+    ctags -R --PHP-kinds=cfi
 
 #### Traits
 
