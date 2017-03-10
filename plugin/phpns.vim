@@ -8,6 +8,8 @@
 
 let s:capture = 0
 
+let g:php_namespace_sort = get(g:, 'php_namespace_sort', "'{,'}-1sort")
+
 let g:php_namespace_sort_after_insert = get(g:, 'php_namespace_sort_after_insert', 0)
 
 function! PhpFindMatchingUse(name)
@@ -180,7 +182,7 @@ function! PhpSortUse()
     let restorepos = line(".") . "normal!" . virtcol(".") . "|"
      " insert after last use or namespace or <?php
     if search('^use\_s\_[[:alnum:][:blank:]\\_]*;', 'be') > 0
-        execute "'{,'}-1sort"
+        execute g:php_namespace_sort
     else
         throw "No use statements found."
     endif
