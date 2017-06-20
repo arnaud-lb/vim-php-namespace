@@ -184,7 +184,7 @@ function! PhpSortUse()
     if search('^use\_s\_[[:alnum:][:blank:]\\_]*;', 'be') > 0
         execute g:php_namespace_sort
     else
-        throw "No use statements found."
+        echo "No use statements found."
     endif
     exe restorepos
 endfunction
