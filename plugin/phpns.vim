@@ -8,7 +8,7 @@
 
 let s:capture = 0
 
-let g:php_namespace_sort = get(g:, 'php_namespace_sort', "'{,'}-1sort")
+let g:php_namespace_sort = get(g:, 'php_namespace_sort', "'{,'}-1sort i")
 
 let g:php_namespace_sort_after_insert = get(g:, 'php_namespace_sort_after_insert', 0)
 
