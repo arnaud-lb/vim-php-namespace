@@ -68,7 +68,7 @@ function! PhpFindFqn(name)
                 let ns = strpart(getline(line('.')), start, end-start)
                 return ['class', ns . "\\" . a:name]
             else
-                return a:name
+                return ['class', a:name]
             endif
         elseif search('^\s*function\_s\+' . a:name . '\>') > 0
             if search('^\%(<?\%(php\s\+\)\?\)\?\s*namespace\s\+', 'be') > 0
