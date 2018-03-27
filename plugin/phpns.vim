@@ -34,6 +34,7 @@ function! PhpFindFqn(name)
     let restorepos = line(".") . "normal!" . virtcol(".") . "|"
     let loadedCount = 0
     let tags = []
+
     try
         let fqn = PhpFindMatchingUse(a:name)
         if fqn isnot 0
@@ -109,16 +110,17 @@ function! PhpInsertUse()
     exe "normal mz"
     " move to the first component
     " Foo\Bar => move to the F
-    call search('[[:alnum:]\\_]\+', 'bcW')
+    call search('[[:alnum:]\\:_]\+', 'bcW')
     let cur_name = expand("<cword>")
     try
-        let fqn = PhpFindMatchingUse(cur_name)
+        let search_phrase = substitute(cur_name, "::class", "", "")
+        let fqn = PhpFindMatchingUse(search_phrase)
         if fqn isnot 0
             exe "normal! `z"
-            echo "import for " . cur_name . " already exists"
+            echo "import for " . search_phrase . " already exists"
             return
         endif
-        let tfqn = PhpFindFqn(cur_name)
+        let tfqn = PhpFindFqn(search_phrase)
         if tfqn is 0
             echo "fully qualified class name was not found"
             return
