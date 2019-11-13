@@ -185,8 +185,6 @@ function! PhpSortUse()
      " insert after last use or namespace or <?php
     if search('^use\_s\_[[:alnum:][:blank:]\\_]*;', 'be') > 0
         execute g:php_namespace_sort
-    else
-        echo "No use statements found."
     endif
     exe restorepos
 endfunction
