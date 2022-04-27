@@ -124,6 +124,16 @@ You can also create a `~/.ctags` file with the following contents:
 
 Note that using `--regex-php=` is 10x slower than using universal-ctags.
 
+#### Enums
+
+The `--regex-php` argument can be used to extract enums:
+
+    ctags -R --PHP-kinds=cfi --regex-php="/^[ \t]*enum[ \t]+([a-z0_9_]+)/\1/e,enum/i"
+
+You can also create a `~/.ctags` file with the following contents:
+
+    --regex-php=/^[ \t]*enum[ \t]+([a-z0_9_]+)/\1/e,enum/i
+
 #### Automatically updating tags
 
 The [AutoTags](http://www.vim.org/scripts/script.php?script_id=1343) plugin can update the tags file every time a file is created or modified under vim.

@@ -1,0 +1,16 @@
+
+Enums 1
+
+STARTTEST
+:%d
+a<?php
+
+namespace Somenamespace;
+
+class Someclass {
+
+    private BarEnum:call PhpInsertUse()
+ax:w! test.out
+:qa!
+ENDTEST
+

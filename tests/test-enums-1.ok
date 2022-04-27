@@ -1,0 +1,9 @@
+<?php
+
+namespace Somenamespace;
+
+use Foo\BarEnum;
+
+class Someclass {
+
+    private BarEnumx

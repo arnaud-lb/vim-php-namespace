@@ -1,0 +1,9 @@
+<?php
+
+namespace Somenamespace;
+
+use Foo\BazEnum;
+
+class Someclass {
+
+    private BazEnumx
