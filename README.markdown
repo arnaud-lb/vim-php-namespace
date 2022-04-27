@@ -6,7 +6,7 @@
 
 ### Import classes, functions, traits, or enums (add use statements)
 
-Adds the corresponding `use` statement for the name under the cursor.
+Imports the symbol under the cursor by adding the corresponding `use` statement.
 
 To use this feature, add the following mappings in `~/.vimrc`:
 
@@ -18,7 +18,7 @@ To use this feature, add the following mappings in `~/.vimrc`:
     autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 
-Then, hitting `\u` in normal or insert mode will import the symbol under the cursor.
+Then, typing `\u` in normal or insert mode will import the symbol under the cursor.
 
 ``` php
 <?php
@@ -27,7 +27,7 @@ new Response<-- cursor here or on the name; hit \u now to insert the use stateme
 
 ### Make symbol fully qualified
 
-Expands the name under the cursor to its fully qualified name.
+Expands the symbol under the cursor to its fully qualified name.
 
 To use this feature, add the following mappings  in `~/.vimrc`:
 
@@ -38,11 +38,11 @@ To use this feature, add the following mappings  in `~/.vimrc`:
     autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
     autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
 
-Then, hitting `\e` in normal or insert mode will expand the name to a fully qualified name.
+Then, typing `\e` in normal or insert mode will expand the symbol to its fully qualified name.
 
 ``` php
 <?php
-$this->getMock('RouterInterface<-- cursor here or on the name; hit \e now to expand the class name'
+$this->getMock('RouterInterface<-- cursor here or on the name; type \e now to expand the class name'
 ```
 
 ### Sort existing use statements alphabetically
