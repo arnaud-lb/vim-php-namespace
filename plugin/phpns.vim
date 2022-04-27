@@ -12,6 +12,10 @@ let g:php_namespace_sort = get(g:, 'php_namespace_sort', "'{,'}-1sort i")
 
 let g:php_namespace_sort_after_insert = get(g:, 'php_namespace_sort_after_insert', 0)
 
+if !exists("g:php_namespace_expand_to_absolute")
+    let g:php_namespace_expand_to_absolute=0
+endif
+
 function! PhpFindMatchingUse(name)
 
     " matches use [function] Foo\Bar as <name>
@@ -163,7 +167,11 @@ function! PhpExpandClass()
     if fqn is 0
         return
     endif
-    substitute /\%#[[:alnum:]\\_]\+/\=fqn[1]/
+    if g:php_namespace_expand_to_absolute
+        substitute /\%#[[:alnum:]\\_]\+/\='\'.fqn[1]/
+    else
+        substitute /\%#[[:alnum:]\\_]\+/\=fqn[1]/
+    endif
     exe restorepos
     " move cursor after fqn
     call search('\([[:blank:]]*[[:alnum:]\\_]\)*', 'ceW')
