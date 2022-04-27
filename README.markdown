@@ -1,6 +1,6 @@
 # Goal
 
-vim-php-namespace is a vim plugin for inserting "use" statements automatically.
+[vim-php-namespace](https://github.com/arnaud-lb/vim-php-namespace) is a vim plugin for inserting "use" statements automatically.
 
 ## Features
 
