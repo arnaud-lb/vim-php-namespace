@@ -4,4 +4,4 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-Base_Controller	test-underscore.fixtures/a.php	/^class Base_Controller {$/;"	c
+Base_Controller	a.php	/^class Base_Controller {$/;"	c

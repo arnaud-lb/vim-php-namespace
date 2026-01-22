@@ -4,4 +4,4 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-Foo	test-class-without-ns.fixtures/a.php	/^class Foo {$/;"	c
+Foo	a.php	/^class Foo {$/;"	c
